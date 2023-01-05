@@ -73,6 +73,7 @@ export const colors = {
   },
   orange: {
     500: "#F97316",
+    600: "#FA4A0C"
   },
   teal: {
     500: "#14B8A6",

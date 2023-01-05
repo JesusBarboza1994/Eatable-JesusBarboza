@@ -1,14 +1,13 @@
-import Eatable from "./components/Eatable/eatable-img";
-import LoginPage from "./pages/login-page";
+import AuthenticatedApp from "./AuthenticatedApp";
+import { useAuth } from "./context/auth-context";
+
+import UnauthenticatedApp from "./UnauthenticatedApp";
+
 
 function App() {
-  return (
-    <div >
-      <h1>Hello World</h1>
-      <LoginPage/>
-      <Eatable/>
-    </div>
-  );
+  const { user } = useAuth();
+  return user ? <AuthenticatedApp/> : <UnauthenticatedApp/>
+   
 }
 
 export default App;
