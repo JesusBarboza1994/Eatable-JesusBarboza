@@ -14,18 +14,7 @@ const StyledForm = styled.form`
   width: 100%
   min-width: 258px;
 `;
-const Section = styled.div`
-  margin: 96px auto;
-  
-`;
-const Container = styled.div`
-  max-width: 480px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-`;
+
 const ImageWrapper = styled.div`
   width: 414px;
   height: 382px;
@@ -37,12 +26,6 @@ const ImageWrapper = styled.div`
   gap:120px;
   margin: auto;
 `
-const CustomLink = styled.a`
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 18px;
-  padding-bottom:12px;
-`;
 const LogSignDiv = styled.div`
   display:flex;
   justify-content: space-around;
@@ -58,8 +41,7 @@ const StyledLink = styled(Link)`
 export default function Form({type, form, handleSubmit, handleFormChange}){
 
   return(
-    <Section>
-       <Container>
+    <>
           <ImageWrapper>
             <LogSignDiv>
               <StyledLink to="/login"
@@ -94,7 +76,7 @@ export default function Form({type, form, handleSubmit, handleFormChange}){
             {type}
           </Button>
         </StyledForm>
-        </Container>
-     </Section>
+    </>
+
 );
 }

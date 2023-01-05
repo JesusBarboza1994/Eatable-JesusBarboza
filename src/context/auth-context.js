@@ -7,7 +7,7 @@ const AuthContext = createContext();
 
 function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [showLogin, setShowLogin] = useState("login");
+  const [select, setSelect] = useState("italian")
 
   // const navigate = useNavigate();
 
@@ -42,6 +42,8 @@ function AuthProvider({ children }) {
     <AuthContext.Provider
       value={{
         user,
+        select,
+        setSelect,
         login: handleLogin,
         signup: handleSignup,
         logout: handleLogout,
