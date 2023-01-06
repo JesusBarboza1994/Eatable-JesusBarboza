@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { colors } from "./styles";
-import { Link, Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/home-page"
 import ProfilePage from "./pages/profile-page"
 import HistorialPage from "./pages/historial-page"
@@ -8,10 +8,11 @@ import { useAuth } from "./context/auth-context";
 import { useEffect, useState } from "react";
 import { getProducts } from "./services/products-service";
 import Navbar from "./components/navbar";
+import Food from "./components/food";
 
 const Container = styled.div`
 background-color: ${colors.gray[100]};
-width: 480px;
+width: 500px;
 
 `;
 
@@ -34,6 +35,7 @@ export default function AuthenticatedApp(){
         <Routes>
           {user ? <Route index element={<Navigate to="home" />} /> : null}
           <Route path="/home" element={<HomePage products={products} />} />
+          <Route path="/home/:id" element={<Food/>} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/historial" element={<HistorialPage />} />
         </Routes>

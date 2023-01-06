@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { colors } from "./styles"
+import { colors } from "../styles"
 
 const Wrapper = styled.div`
   height: 250px;
@@ -23,6 +23,7 @@ const TextName = styled.h1`
   display: flex;
   align-items: center;
   text-align: center;
+  color:${colors.black};
 `
 const TextPrice = styled.h1`
   font-weight: 600;
@@ -46,10 +47,10 @@ const TextDiv = styled.div`
   box-shadow: 0px 30px 60px rgba(57, 57, 57, 0.1);
 `
 
-export default function FoodCard({img, name, price}){
+export default function FoodCard({showFood, img, name, price}){
 
   return(
-    <Wrapper>
+    <Wrapper onClick={showFood}>
       <TextDiv>
         <TextPrice>${price}</TextPrice>
         <TextName>{name.charAt(0).toUpperCase() + name.slice(1)}</TextName>

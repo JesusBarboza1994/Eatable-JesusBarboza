@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { login, logout } from "../services/session-service";
 import { createUser, getUser } from "../services/users-service";
 
@@ -7,7 +6,9 @@ const AuthContext = createContext();
 
 function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [select, setSelect] = useState("italian")
+  const [select, setSelect] = useState("italian");
+  const [actualProduct, setActualProduct] = useState(null);
+  const [cart, setCart] = useState(sessionStorage.getItem("cart") || []);
 
   // const navigate = useNavigate();
 
@@ -43,6 +44,10 @@ function AuthProvider({ children }) {
       value={{
         user,
         select,
+        actualProduct,
+        cart, 
+        setCart,
+        setActualProduct,
         setSelect,
         login: handleLogin,
         signup: handleSignup,
