@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import CartCard from "./card-cart";
 import { colors } from "../styles";
 import { useAuth } from "../context/auth-context";
+import Button from "./Button";
 
 const DivBack = styled.div`
 display:flex;
@@ -30,25 +31,49 @@ const Text = styled.h1`
   font-size: 22px;
   line-height: 28px;
 `
+const TotalDiv = styled.div`
+
+`
+const TextTotal = styled.h1`
+
+`
+const Total = styled.h1`
+
+`
+const UpDiv = styled.div`
+
+`
+const DownDiv = styled.div`
+
+`
 
 export default function Cart(){
   const products = JSON.parse(sessionStorage.getItem("cart"));
 
   return(
     <Wrapper>
-      <DivBack>
-        <Link style={{textAlign: "right"}} to="/home">
-          <IoIosArrowBack />
-        </Link>
-        <TextDiv>
-          <Text>Cart</Text>
-        </TextDiv>
-      </DivBack>
-      <Container>
-        {products.map((product, index)=>{
-          return <CartCard key={index} product={product} />
-        })}
-      </Container>
+      <UpDiv>
+        <DivBack>
+          <Link style={{textAlign: "right"}} to="/home">
+            <IoIosArrowBack />
+          </Link>
+          <TextDiv>
+            <Text>Cart</Text>
+          </TextDiv>
+        </DivBack>
+        <Container>
+          {products.map((product, index)=>{
+            return <CartCard key={index} product={product} />
+          })}
+        </Container>
+      </UpDiv>
+      <DownDiv>
+        <TotalDiv>
+          <TextTotal>Total</TextTotal>
+          <Total>${}</Total>
+        </TotalDiv>
+        <Button>Checkout</Button>
+      </DownDiv>
     </Wrapper> 
     )
 }
