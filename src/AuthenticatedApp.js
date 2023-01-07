@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { getProducts } from "./services/products-service";
 import Navbar from "./components/navbar";
 import Food from "./components/food";
+import Cart from "./components/cart";
 
 const Container = styled.div`
 background-color: ${colors.gray[100]};
@@ -36,6 +37,7 @@ export default function AuthenticatedApp(){
           {user ? <Route index element={<Navigate to="home" />} /> : null}
           <Route path="/home" element={<HomePage products={products} />} />
           <Route path="/home/:id" element={<Food/>} />
+          <Route path="/cart" element={<Cart/>} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/historial" element={<HistorialPage />} />
         </Routes>

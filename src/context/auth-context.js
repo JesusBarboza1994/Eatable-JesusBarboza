@@ -9,10 +9,12 @@ function AuthProvider({ children }) {
   const [select, setSelect] = useState("italian");
   const [actualProduct, setActualProduct] = useState(null);
   const [cart, setCart] = useState(sessionStorage.getItem("cart") || []);
+  const [items, setItems] = useState(sessionStorage.getItem("items") || []);
 
   // const navigate = useNavigate();
 
   useEffect(() => {
+   
     getUser()
       .then(setUser)
       .catch((error) => console.log(error));
@@ -46,6 +48,8 @@ function AuthProvider({ children }) {
         select,
         actualProduct,
         cart, 
+        items,
+        setItems,
         setCart,
         setActualProduct,
         setSelect,

@@ -74,14 +74,20 @@ const MiddleDiv = styled.div`
 `
 
 export default function Food(){
-  const { actualProduct, setCart, cart } = useAuth();
+  const { items, setItems, actualProduct, setCart, cart} = useAuth();
   const [isAdd, setIsAdd] = useState((JSON.parse(sessionStorage.getItem("cart")) || [])
                               .filter(product=>product.id === actualProduct.id).length === 0);
   
   function handleAdded(event){
     event.preventDefault();
-    JSON.parse(sessionStorage.getItem("cart")).filter(product=>product.id === actualProduct.id).length === 0 ?
-      setCart([...cart, actualProduct]) : setCart(cart.filter(product=> product.id !== actualProduct.id));
+    // setActualProduct({...actualProduct, "quantity": 1})
+    if(JSON.parse(sessionStorage.getItem("cart")).filter(product=>product.id === actualProduct.id).length === 0){
+      setCart([...cart, actualProduct]) 
+      setItems([...items, {id:actualProduct.id, quantity: 1}])
+    }else{
+      setCart(cart.filter(product=> product.id !== actualProduct.id));
+      setItems(items.filter(product=> product.id !== actualProduct.id))
+    } 
     setIsAdd(!isAdd);
     
   }
@@ -89,6 +95,9 @@ export default function Food(){
   useEffect(()=>{
     sessionStorage.setItem("cart",JSON.stringify(cart) )
   }, [cart])
+  useEffect(()=>{
+    sessionStorage.setItem("items",JSON.stringify(items) )
+  }, [items])
 
   return(
     <Wrapper>

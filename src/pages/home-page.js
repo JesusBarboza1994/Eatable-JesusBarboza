@@ -6,6 +6,8 @@ import FoodCard from "../components/food-card"
 import { colors } from "../styles"
 import {BsCart2} from "react-icons/bs"
 import {RiSearchLine} from "react-icons/ri"
+import { useEffect } from "react"
+import Cart from "../components/cart"
 
 
 const Wrapper = styled.div`
@@ -44,6 +46,10 @@ export default function HomePage({products}){
   const {select, setActualProduct} = useAuth()
   const products_filter = products.filter(products=> products.category=== select);
 
+  useEffect(()=>{
+    if(!sessionStorage.getItem("cart")) sessionStorage.setItem("cart",JSON.stringify([]))
+    if(!sessionStorage.getItem("items")) sessionStorage.setItem("items",JSON.stringify([]))
+  })
   function showFood(event, product){
     setActualProduct(product)
   }
@@ -55,7 +61,9 @@ export default function HomePage({products}){
           <RiSearchLine/>
           <StyledInput type="text" />
         </SearchDiv>
-        <BsCart2/>
+        <Link to="/cart">
+          <BsCart2 />
+        </Link>
       </UpDiv>
       <CategoryList categories={categories}/>
       <Container>
