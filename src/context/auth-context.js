@@ -10,6 +10,7 @@ function AuthProvider({ children }) {
   const [actualProduct, setActualProduct] = useState(null);
   const [cart, setCart] = useState(sessionStorage.getItem("cart") || []);
   const [items, setItems] = useState(sessionStorage.getItem("items") || []);
+  const [total, setTotal] = useState(0);
 
   // const navigate = useNavigate();
 
@@ -49,6 +50,9 @@ function AuthProvider({ children }) {
         actualProduct,
         cart, 
         items,
+        total,
+        setUser,
+        setTotal,
         setItems,
         setCart,
         setActualProduct,

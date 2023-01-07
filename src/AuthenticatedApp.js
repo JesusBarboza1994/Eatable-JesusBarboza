@@ -10,6 +10,7 @@ import { getProducts } from "./services/products-service";
 import Navbar from "./components/navbar";
 import Food from "./components/food";
 import Cart from "./components/cart";
+import Checkout from "./components/checkout";
 
 const Container = styled.div`
 background-color: ${colors.gray[100]};
@@ -38,6 +39,7 @@ export default function AuthenticatedApp(){
           <Route path="/home" element={<HomePage products={products} />} />
           <Route path="/home/:id" element={<Food/>} />
           <Route path="/cart" element={<Cart/>} />
+          <Route path="/checkout" element={<Checkout/>} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/historial" element={<HistorialPage />} />
         </Routes>
