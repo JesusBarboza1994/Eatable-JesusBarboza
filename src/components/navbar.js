@@ -4,6 +4,7 @@ import { RiUser3Fill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { colors } from "../styles";
 import styled from "@emotion/styled";
+import { useAuth } from "../context/auth-context";
 
 const Wrapper = styled.div`
   display:flex;
@@ -17,7 +18,7 @@ const StyledLink = styled(Link)`
 `
 
 export default function Navbar(){
-  const [page, setPage] = useState("home")
+  const {page, setPage} = useAuth();
 
   return(
     <Wrapper>

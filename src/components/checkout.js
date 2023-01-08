@@ -2,8 +2,11 @@ import styled from "@emotion/styled";
 import TemplateCardOrder from "./template-card-order";
 import { useAuth } from "../context/auth-context";
 import { colors } from "../styles";
-import { useState } from "react";
-import { updateUser } from "../services/users-service";
+import { useEffect, useState } from "react";
+import { getUser, updateUser } from "../services/users-service";
+import { createOrder } from "../services/orders-service";
+import { useNavigate } from "react-router-dom";
+
 const UserDiv = styled.div`
   width:100%;
   background:${colors.white};
@@ -71,8 +74,10 @@ const UpDiv = styled.div`
 export default function Checkout(){
   const {user, setUser} = useAuth();
   const [upUser, setUpUser] = useState(user);
+  const { items } = useAuth();
+  const navigate = useNavigate();
   
-  const Delivery = () =>{
+  function Delivery(){
     return(
       <Wrapper>
         <UpDiv>
@@ -83,18 +88,24 @@ export default function Checkout(){
           </TextDiv>
         </UpDiv>
         <UserDiv>
-          <InputName type="text" onChange={handleChange} name="name" value={upUser.name || "No name"}/>
-          <Input type="text" onChange={handleChange} name="address" value={upUser.address || "No address"}/>
-          <Input type="text" onChange={handleChange} name="phone" value={upUser.phone || "No phone"}/>
+          <InputName type="text" onChange={handleChange} name="name" value={upUser.name }/>
+          <Input type="text" onChange={handleChange} name="address" value={upUser.address }/>
+          <Input type="text" onChange={handleChange} name="phone" value={upUser.phone}/>
         </UserDiv>
       </Wrapper>
     )
   }
 
+  useEffect(()=>{
+    getUser()
+      .then(setUser)
+      .catch((error) => console.log(error));
+  }, [user])
+
   function handleChange(event){
     event.preventDefault();
     const {name, value} = event.target
-    setUpUser({...user, [name]: value})
+    setUpUser({...upUser, [name]: value})
   }
 
   function handleChangeUser(event){
@@ -105,9 +116,14 @@ export default function Checkout(){
       setUser(response)
     })
   }
+
   function handleOrder(event){
     event.preventDefault();
-    
+    createOrder({
+      delivery_address: user.address,
+      items: items
+    }).then(console.log).catch(console.log())
+    navigate("/historial");
   }
 
   return(

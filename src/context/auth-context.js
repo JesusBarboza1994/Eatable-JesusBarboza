@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { login, logout } from "../services/session-service";
-import { createUser, getUser } from "../services/users-service";
+import { createUser, getUser, updateUser } from "../services/users-service";
 
 const AuthContext = createContext();
 
@@ -11,11 +11,11 @@ function AuthProvider({ children }) {
   const [cart, setCart] = useState(sessionStorage.getItem("cart") || []);
   const [items, setItems] = useState(sessionStorage.getItem("items") || []);
   const [total, setTotal] = useState(0);
+  const [page, setPage] = useState("home");
 
-  // const navigate = useNavigate();
 
   useEffect(() => {
-   
+    console.log("holaa")
     getUser()
       .then(setUser)
       .catch((error) => console.log(error));
@@ -26,6 +26,10 @@ function AuthProvider({ children }) {
       setUser(user);
       // navigate("/categories");
     });
+  }
+
+  function handleUpdateUser(updateData){
+    return updateUser(updateData).then(console.log)
   }
 
   function handleSignup(userData) {
@@ -51,6 +55,8 @@ function AuthProvider({ children }) {
         cart, 
         items,
         total,
+        page,
+        setPage,
         setUser,
         setTotal,
         setItems,
@@ -60,6 +66,7 @@ function AuthProvider({ children }) {
         login: handleLogin,
         signup: handleSignup,
         logout: handleLogout,
+        upDateUser: handleUpdateUser
       }}
     >
       {children}

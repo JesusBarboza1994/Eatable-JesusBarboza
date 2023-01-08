@@ -13,6 +13,7 @@ const Wrapper=styled.div`
   color:${colors.white};
   align-items:center;
   justify-content:center;
+  cursor:pointer;
 `
 const Text = styled.h1`
   font-weight: 600;

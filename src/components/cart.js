@@ -3,10 +3,11 @@ import { Link, Navigate, useNavigate } from "react-router-dom"
 import { IoIosArrowBack } from "react-icons/io";
 import { useEffect, useState } from "react";
 import CartCard from "./card-cart";
-
+import { RiShoppingCart2Line } from "react-icons/ri";
 import { useAuth } from "../context/auth-context";
 import Button from "./Button";
 import TemplateCardOrder from "./template-card-order"
+import EmptyPage from "./empty-cart";
 
 const Container = styled.div`
   display:flex;
@@ -42,6 +43,10 @@ export default function Cart(){
     navigate("/checkout")
   }
   return(
+    <>
+      { (products.length==0) ? <EmptyPage title={"Cart"} description={"No items in the cart"} /> :
     <TemplateCardOrder button={"Checkout"} Container={ContainerProducts} products={products} title={"Cart"} handleFunction={handleCheckout}/>
-    )
+  }
+    </>
+  ) 
 }

@@ -54,13 +54,13 @@ const DownDiv = styled.div`
 `
 
 export default function TemplateCardOrder({button, Container, title, handleFunction}){
-  const {total, setTotal} = useAuth();
+  const {total, setPage} = useAuth();
   return(
     <Wrapper>
       <UpDiv>
         <DivBack>
           <Link style={{textAlign: "right"}} to="/home">
-            <IoIosArrowBack />
+            <IoIosArrowBack onClick={()=>setPage("home")}/>
           </Link>
           <TextDiv>
             <Text>{title}</Text>

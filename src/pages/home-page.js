@@ -6,7 +6,7 @@ import FoodCard from "../components/food-card"
 import { colors } from "../styles"
 import {BsCart2} from "react-icons/bs"
 import {RiSearchLine} from "react-icons/ri"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import Cart from "../components/cart"
 
 
@@ -39,13 +39,20 @@ const SearchDiv = styled.div`
 const StyledInput = styled.input`
   border:none;
 `
+const SearchText = styled.h1`
+font-weight: 600;
+font-size: 28px;
+line-height: 35px;
+text-align: center;
+`
 
 
 export default function HomePage({products}){
   const categories = Array.from(new Set(products.map(product=> product.category))).sort()
-  const {select, setActualProduct} = useAuth()
+  const {select, setActualProduct, setPage} = useAuth()
   const products_filter = products.filter(products=> products.category=== select);
-
+  const [search, setSearch] = useState("")
+  const [searchProducts, setSearchProducts] = useState("")
   useEffect(()=>{
     if(!sessionStorage.getItem("cart")) sessionStorage.setItem("cart",JSON.stringify([]))
     if(!sessionStorage.getItem("items")) sessionStorage.setItem("items",JSON.stringify([]))
@@ -53,29 +60,53 @@ export default function HomePage({products}){
   function showFood(event, product){
     setActualProduct(product)
   }
+  useEffect(()=>{
+    setSearchProducts(products.filter(product => product.name.includes(search)))
+  },[search])
+
+  
 
   return(
     <Wrapper>
       <UpDiv>
         <SearchDiv>
           <RiSearchLine/>
-          <StyledInput type="text" />
+          <StyledInput type="text" value={search} onChange={(e)=>setSearch(e.target.value)}/>
         </SearchDiv>
         <Link to="/cart">
-          <BsCart2 />
+          <BsCart2 onClick={()=>setPage("empty")}/>
         </Link>
       </UpDiv>
-      <CategoryList categories={categories}/>
-      <Container>
-        {products_filter.map((product, index)=>{
-          return(
-            <StyledLink to={`/home/${product.id}`}>
-              <FoodCard showFood={(e)=>showFood(e, product)} key={index} img={product.picture_url} name={product.name} price={product.price/100}/>
-            </StyledLink>
-          )
-        })}
+      
+        { search ==="" ? 
+        <>
+          <CategoryList categories={categories}/>
+          <Container>  
+          {products_filter.map((product, index)=>{
+            return(
+              <StyledLink to={`/home/${product.id}`}>
+                <FoodCard showFood={(e)=>showFood(e, product)} key={index} img={product.picture_url} name={product.name} price={product.price/100}/>
+              </StyledLink>
+            )
+          }) }
+          </Container>
+        </>
+        : 
+        <>
+          <SearchText>Found {searchProducts.length === 1 ? " 1 result" :` ${searchProducts.length} results`} results</SearchText>
+          <Container>  
+              {searchProducts.map((product, index)=>{
+                return(
+                  <StyledLink to={`/home/${product.id}`}>
+                    <FoodCard showFood={(e)=>showFood(e, product)} key={index} img={product.picture_url} name={product.name} price={product.price/100}/>
+                  </StyledLink>
+                )
+              })}
+            </Container>
+        </>
+        }
 
-      </Container>
+      
     </Wrapper>
   )
 }
