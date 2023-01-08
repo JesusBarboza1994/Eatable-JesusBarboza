@@ -15,7 +15,7 @@ const StyledForm = styled.form`
 
 export default function SignupForm() {
   const navigate = useNavigate();
-  const { signup } = useAuth();
+  const { signup, setPage } = useAuth();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -32,6 +32,7 @@ export default function SignupForm() {
       const newErrors = JSON.parse(error.message);
       setErrors({ ...errors, ...newErrors });
     });
+    setPage("profile")
     navigate('/profile');
   }
 

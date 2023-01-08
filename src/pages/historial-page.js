@@ -6,6 +6,7 @@ import styled from "@emotion/styled"
 import { colors } from "../styles"
 import OrderDetail from "../components/order-detail"
 import { useAuth } from "../context/auth-context"
+import EmptyOrder from "../components/empty-order"
 
 const DivBack = styled.div`
   display:flex;
@@ -46,22 +47,29 @@ export default function HistorialPage(){
   },[])
 
   return(
-    <Wrapper>
-      <DivBack>
-        <Link style={{textAlign: "right"}} to="/home">
-          <IoIosArrowBack onClick={()=>setPage("home")}/>
-        </Link>
-        <TextDiv>
-          <Text>History</Text>
-        </TextDiv>
-      </DivBack>
-      <Container>
-        {orders.map(order=>{
-          return(
-            <OrderDetail order={order}/>
-          )
-        })}
-      </Container>
-    </Wrapper>
-  )
+    <>
+      {
+        !orders || orders.length == 0 ? <EmptyOrder/> : 
+        <Wrapper>
+          <DivBack>
+            <Link style={{textAlign: "right"}} to="/home">
+              <IoIosArrowBack onClick={()=>setPage("home")}/>
+            </Link>
+            <TextDiv>
+              <Text>History</Text>
+            </TextDiv>
+          </DivBack>
+          <Container>
+            {orders.map(order=>{
+              return(
+                <OrderDetail order={order}/>
+              )
+            })}
+          </Container>
+        </Wrapper>
+      
+      }
+    </>
+  ) 
+    
 }

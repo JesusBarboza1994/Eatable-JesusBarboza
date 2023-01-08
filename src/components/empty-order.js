@@ -1,7 +1,7 @@
 import { IoIosArrowBack } from "react-icons/io"
 import { Link } from "react-router-dom"
 import styled from "@emotion/styled";
-import { RiShoppingCart2Line } from "react-icons/ri";
+import { RiCalendarLine, RiShoppingCart2Line } from "react-icons/ri";
 import { useAuth } from "../context/auth-context";
 
 const DivBack = styled.div`
@@ -35,7 +35,7 @@ const DivFill = styled.div`
   justify-content:center;
 `
 
-export default function EmptyPage({title, description}){
+export default function EmptyOrder(){
   const {setPage} = useAuth();
   return(
     <Wrapper>
@@ -44,14 +44,14 @@ export default function EmptyPage({title, description}){
           <IoIosArrowBack onClick={()=>setPage("home")}/>
         </Link>
         <TextDiv>
-          <Text>{title}</Text>
+          <Text>History</Text>
         </TextDiv>
       </DivBack>
       <DivFill>
-        <RiShoppingCart2Line style={{height:200, width:200}} />
+        <RiCalendarLine style={{height:200, width:200}} />
       </DivFill>
       
-      <TextBig>{description}</TextBig>
+      <TextBig>No history yet</TextBig>
     </Wrapper>
   )
 }

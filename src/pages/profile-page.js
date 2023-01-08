@@ -127,10 +127,13 @@ export default function ProfilePage(){
     if(change){
       console.log(upUser)
       upDateUser(upUser)
+      navigate("/home");
+      setPage("home");
     }else{
       logout().then(console.log);
       sessionStorage.removeItem("cart");
       sessionStorage.removeItem("items");
+      sessionStorage.removeItem("total");
       navigate("/login");
       setPage("home");
     }

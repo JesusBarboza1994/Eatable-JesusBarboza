@@ -16,7 +16,7 @@ const StyledForm = styled.form`
 export default function LoginForm() {
 
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, setPage } = useAuth();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -26,6 +26,7 @@ export default function LoginForm() {
     event.preventDefault();
 
     login(form).catch((error) => console.log(error));
+    setPage("home")
     navigate('/home');
   }
 

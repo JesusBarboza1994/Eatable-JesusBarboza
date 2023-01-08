@@ -50,6 +50,7 @@ const TextChange = styled.h1`
   font-size: 16px;
   line-height: 20px;
   color: ${colors.orange["600"]};
+  cursor:pointer;
 `
 const TextDiv = styled.div`
   display:flex;
@@ -73,7 +74,13 @@ const UpDiv = styled.div`
 
 export default function Checkout(){
   const {user, setUser} = useAuth();
-  const [upUser, setUpUser] = useState(user);
+  const [upUser, setUpUser] = useState({
+    name: user.name || "",
+    email: user.email || "",
+    phone: user.phone || "",
+    address: user.address || "",
+
+  });
   const { items } = useAuth();
   const navigate = useNavigate();
   
@@ -110,6 +117,7 @@ export default function Checkout(){
 
   function handleChangeUser(event){
     event.preventDefault();
+    console.log(upUser)
     console.log("Actualizado");
     setUser(upUser);
     updateUser(upUser).then(response=>{

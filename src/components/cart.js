@@ -36,6 +36,7 @@ export default function Cart(){
     const updatetotal = items.reduce((
       acc, item)=> acc + item.quantity * products.find(product=> product.id === item.id).price/100 ,0)
     setTotal(updatetotal)
+    sessionStorage.setItem("total",JSON.stringify(updatetotal))
   },[items])
 
   function handleCheckout(event){

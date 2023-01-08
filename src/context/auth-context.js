@@ -8,14 +8,13 @@ function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [select, setSelect] = useState("italian");
   const [actualProduct, setActualProduct] = useState(null);
-  const [cart, setCart] = useState(sessionStorage.getItem("cart") || []);
-  const [items, setItems] = useState(sessionStorage.getItem("items") || []);
-  const [total, setTotal] = useState(0);
-  const [page, setPage] = useState("home");
+  const [cart, setCart] = useState(JSON.parse(sessionStorage.getItem("cart"))|| []);
+  const [items, setItems] = useState(JSON.parse(sessionStorage.getItem("items")) || []);
+  const [total, setTotal] = useState(JSON.parse(sessionStorage.getItem("total")) || 0);
+  const [page, setPage] = useState(sessionStorage.getItem("page") || "home");
 
 
   useEffect(() => {
-    console.log("holaa")
     getUser()
       .then(setUser)
       .catch((error) => console.log(error));
@@ -29,7 +28,7 @@ function AuthProvider({ children }) {
   }
 
   function handleUpdateUser(updateData){
-    return updateUser(updateData).then(console.log)
+    return updateUser(updateData).then(setUser).catch(error=>console.log(error))
   }
 
   function handleSignup(userData) {
