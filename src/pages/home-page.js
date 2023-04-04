@@ -25,6 +25,23 @@ const Container = styled.div`
   justify-items:center;
   height: 800px;
   overflow-y: scroll;
+  /* Estilos de la barra de desplazamiento */
+  &::-webkit-scrollbar {
+    width:4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 `
 const StyledLink = styled(Link)`
   text-decoration:none;
@@ -39,10 +56,20 @@ const SearchDiv = styled.div`
   display:flex;
   align-items:center;
   gap:8px;
+  padding:2px;
+  padding-left:10px;
+  border-radius:6px;
+  &:focus-within{
+    outline: 2px solid black;
+  }
 `
 const StyledInput = styled.input`
   border:none;
   background: ${colors.gray["100"]};
+  &:focus{
+    outline: none;
+    
+  }
 `
 const SearchText = styled.h1`
 font-weight: 600;

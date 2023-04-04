@@ -6,8 +6,28 @@ import { colors } from "../styles"
 const Wrapper = styled.div`
   display: flex;
   gap:34px;
+  padding-bottom:4px;
   overflow-x: scroll;
   overflow-y:hidden;
+  /* Estilos de la barra de desplazamiento */
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    height:8px;
+  }
+  
 `
 const Text = styled.h1`
   font-weight: 400;
